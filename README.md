@@ -9,7 +9,7 @@ Provide PushKit functionality to ionic capacitor
 1. Install plugin
 ```bash
 npm install capacitor-callkit-voip
-npx cap sync
+ionic cap sync
 ```
 
 2. Xcode Project > Capabilities pane. Select the checkbox for Voice over IP, as shown in Image
@@ -32,14 +32,39 @@ openssl pkcs12 -in YOUR_CERTIFICATES.p12 -out app.pem -nodes -clcerts
 ```
 
 7. You will receive `app.pem` certificate file that can be used to send VOIP notification (you can use my script bellow)
+
 ## Usage
+
+To make this plugin work, you need to call `.register()` method and then you can use API bellow.
+
+```typescript
+import {CallKitVoip} from "capacitor-callkit-voip"
+
+
+async function registerVoipNotification(){
+    // register token 
+    CallKitVoip.addListener("registration", (({token}:Token) =>
+      console.log(`VOIP token has been received ${token}`)
+    ))
+  
+    // start call
+    CallKitVoip.addListener("callAnswered", (({username, connectionId}:CallData) => 
+      console.log(`Call has been received from ${username} (connectionId: ${connectionId})`)
+    ));
+    
+    // init plugin, start registration of VOIP notifications 
+    await CallKitVoip.register(); // can be used with `.then()`
+    console.log("Push notification has been registered")
+  
+}
+```
 
 Once the plugin is installed, the only thing that you need to do is to push a VOIP notification with the following data payload structure:
 
 ```json
 {
-    Username      : 'Display Name',
-    ConnectionId  : 'Unique Call ID'
+    "Username"      : "Display Name",
+    "ConnectionId"  : "Unique Call ID"
 }
 ```
 
@@ -88,22 +113,17 @@ If this project help you reduce time to develop, you can give me a cup of coffee
 
 ## API
 
-<docgen-index>
-
 * [`register()`](#register)
 * [`addListener("registration", handler)`](#addlistener)
 * [`addListener("callAnswered", handler)`](#addlistener)
-* [`addListener("callStarted    ", handler)`](#addlistener)
+* [`addListener("callStarted", handler)`](#addlistener)
 * [Interfaces](#interfaces)
 
-</docgen-index>
-
-<docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
 ### register()
-Register your device to receive VOIP push notifications. 
-After registration it will call 'registration' listener (bellow) that returns VOIP token. 
+Register your device to receive VOIP push notifications.
+After registration it will call 'registration' listener (bellow) that returns VOIP token.
 ```typescript
 import {CallKitVoip} from "capacitor-callkit-voip"
 //...
@@ -170,7 +190,7 @@ CallKitVoip.addListener("callAnswered", (({username, connectionId}:CallData) => 
 
 ### addListener("callStarted", handler)
 
-Adds listener to handle call starting. I am not sure if it's usable, because you can handle it directly in your app  
+Adds listener to handle call starting. I am not sure if it's usable, because you can handle it directly in your app
 
 ```typescript
 import {CallKitVoip, Token} from "capacitor-callkit-voip"
@@ -214,5 +234,3 @@ CallKitVoip.addListener("callStarted", (({username, connectionId}:CallData) => {
 | ------------------ | ------------------- |
 | **`connectionId`** | <code>string</code> |
 | **`username`**     | <code>string</code> |
-
-</docgen-api>
