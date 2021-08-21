@@ -1,7 +1,7 @@
 import Foundation
 
 @objc public class CallKitVoip: NSObject {
-    @objc public func echo(_ value: String) -> String {
-        return value
+    @objc public func register() -> String {
+        return "token"
     }
 }
