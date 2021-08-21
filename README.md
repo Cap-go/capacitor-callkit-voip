@@ -109,7 +109,7 @@ If this project help you reduce time to develop, you can give me a cup of coffee
 
 **Links**
 - https://revolut.me/yleso
-- https://paypal.com/yleso
+- https://paypal.me/yleso
 
 ## API
 
