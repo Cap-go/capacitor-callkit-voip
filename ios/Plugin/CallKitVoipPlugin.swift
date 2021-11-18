@@ -3,7 +3,7 @@ import Capacitor
 import UIKit
 import CallKit
 import PushKit
-
+import TwilioVideo
 
 /**
  *  CallKit Voip Plugin provides native PushKit functionality with apple CallKit to ionic capacitor
@@ -12,7 +12,6 @@ import PushKit
 public class CallKitVoipPlugin: CAPPlugin {
     
     private var provider: CXProvider?
-    private let implementation          = CallKitVoip()
     private let voipRegistry            = PKPushRegistry(queue: nil)
     private var connectionIdRegistry : [UUID: CallConfig] = [:]
     
@@ -32,7 +31,11 @@ public class CallKitVoipPlugin: CAPPlugin {
         
         call.resolve()
     }
-    
+
+    @objc func incomingCall(_ call: CAPPluginCall) {
+        // TODO
+    }
+
     public func notifyEvent(eventName: String, uuid: UUID){
         if let config = connectionIdRegistry[uuid] {
             notifyListeners(eventName, data: [
@@ -44,9 +47,14 @@ public class CallKitVoipPlugin: CAPPlugin {
     }
     
     public func incommingCall(from: String, connectionId: String) {
-        let update          = CXCallUpdate()
-        update.remoteHandle = CXHandle(type: .generic, value: from)
-        update.hasVideo     = true
+        let update                      = CXCallUpdate()
+        update.remoteHandle             = CXHandle(type: .generic, value: from)
+        update.hasVideo                 = true
+        update.supportsDTMF             = false
+        update.supportsHolding          = true
+        update.supportsGrouping         = false
+        update.supportsUngrouping       = false
+        update.hasVideo                 = true
         
         let uuid = UUID()
         connectionIdRegistry[uuid] = .init(connectionId: connectionId, username: from)
@@ -54,17 +62,21 @@ public class CallKitVoipPlugin: CAPPlugin {
     }
     
     
+
     
     public func endCall(uuid: UUID) {
         let controller = CXCallController()
         let transaction = CXTransaction(action:
                                             CXEndCallAction(call: uuid));controller.request(transaction,completion: { error in })
     }
+    
 }
+
 
 // MARK: CallKit events handler
 
 extension CallKitVoipPlugin: CXProviderDelegate {
+    
     public func providerDidReset(_ provider: CXProvider) {
         print("provider did reset")
     }
@@ -72,7 +84,7 @@ extension CallKitVoipPlugin: CXProviderDelegate {
     public func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
         print("call answered")
         notifyEvent(eventName: "callAnswered", uuid: action.callUUID)
-        endCall(uuid: action.callUUID)
+//        endCall(uuid: action.callUUID)
         action.fulfill()
     }
     
@@ -106,7 +118,9 @@ extension CallKitVoipPlugin: PKPushRegistryDelegate {
         
         self.incommingCall(from: username, connectionId: connectionId)
     }
+    
 }
+
 
 extension CallKitVoipPlugin {
     struct CallConfig {

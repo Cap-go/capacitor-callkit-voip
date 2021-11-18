@@ -1,7 +1,9 @@
 import type {PluginListenerHandle} from "@capacitor/core";
 
 export interface CallKitVoipPlugin {
-  register(): Promise<void>;
+  register(options:{topic: string}): Promise<void>;
+
+  incomingCall(options:{from:string}): Promise<void>
 
   addListener(
     eventName: 'registration',
