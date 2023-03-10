@@ -1,8 +1,8 @@
 import { registerPlugin } from '@capacitor/core';
 
-import type { CallKitVoipPlugin } from './definitions';
+import type { CapacitorCallkitVoip } from './definitions';
 
-const CallKitVoip = registerPlugin<CallKitVoipPlugin>('CallKitVoip', {
+const CallKitVoip = registerPlugin<CapacitorCallkitVoip>('CallKitVoip', {
   web: () => import('./web').then(m => new m.CallKitVoipWeb()),
 });
 

@@ -4,7 +4,7 @@ export default {
     {
       file: 'dist/plugin.js',
       format: 'iife',
-      name: 'capacitorCallKitVoip',
+      name: 'capgoCapacitorCallKitVoip',
       globals: {
         '@capacitor/core': 'capacitorExports',
       },

@@ -1,6 +1,6 @@
 import type {PluginListenerHandle} from "@capacitor/core";
 
-export interface CallKitVoipPlugin {
+export interface CapacitorCallkitVoip {
   register(options:{topic: string}): Promise<void>;
 
   incomingCall(options:{from:string}): Promise<void>
