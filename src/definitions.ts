@@ -1,13 +1,25 @@
 import type {PluginListenerHandle} from "@capacitor/core";
-
+export declare interface CallToken {
+  token: string
+}
+export declare interface CallData{
+  connectionId  :   string
+  username      ?:  string
+}
+export declare interface OptionRegister {
+  topic: string
+}
+export declare interface OptionIncomingCall{
+  from  :   string
+}
 export interface CapacitorCallkitVoip {
-  register(options:{topic: string}): Promise<void>;
+  register(options: OptionRegister): Promise<void>;
 
-  incomingCall(options:{from:string}): Promise<void>
+  incomingCall(options: OptionIncomingCall): Promise<void>
 
   addListener(
     eventName: 'registration',
-    listenerFunc: (token:Token)   => void
+    listenerFunc: (token: CallToken)   => void
   ): Promise<PluginListenerHandle> & PluginListenerHandle;
 
   addListener(
@@ -19,10 +31,4 @@ export interface CapacitorCallkitVoip {
     eventName: 'callStarted',
     listenerFunc: (callDate: CallData) => void
   ): Promise<PluginListenerHandle> & PluginListenerHandle;
-}
-
-export declare interface Token{token: string}
-export declare interface CallData{
-  connectionId  :   string
-  username      ?:  string
 }

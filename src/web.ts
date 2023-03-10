@@ -7,8 +7,8 @@ export class CallKitVoipWeb extends WebPlugin implements CapacitorCallkitVoip {
     return;
   }
 
-  async incomingCall({from}:{from:string}):Promise<void>{
-    console.log(from)
+  async incomingCall(options: { from: string }): Promise<void> {
+    console.log(options)
     return;
   }
 }
