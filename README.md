@@ -14,7 +14,7 @@ Provide PushKit functionality to ionic capacitor
 
 1. Install plugin
 ```bash
-npm install capacitor-callkit-voip
+npm install @capgo/capacitor-callkit-voip
 ionic cap sync
 ```
 
@@ -44,7 +44,7 @@ openssl pkcs12 -in YOUR_CERTIFICATES.p12 -out app.pem -nodes -clcerts
 To make this plugin work, you need to call `.register()` method and then you can use API bellow.
 
 ```typescript
-import {CallKitVoip} from "capacitor-callkit-voip"
+import {CallKitVoip} from "@capgo/capacitor-callkit-voip"
 
 
 async function registerVoipNotification(){
@@ -131,7 +131,7 @@ If this project help you reduce time to develop, you can give me a cup of coffee
 Register your device to receive VOIP push notifications.
 After registration it will call 'registration' listener (bellow) that returns VOIP token.
 ```typescript
-import {CallKitVoip} from "capacitor-callkit-voip"
+import {CallKitVoip} from "@capgo/capacitor-callkit-voip"
 //...
 await CallKitVoip.register();
 // or
@@ -152,7 +152,7 @@ Adds listener on registration. When device will be registered to receiving VOIP 
 As usually, it's called after `.register()` function
 
 ```typescript
-import {CallKitVoip, Token} from "capacitor-callkit-voip"
+import {CallKitVoip, Token} from "@capgo/capacitor-callkit-voip"
 //...
 CallKitVoip.addListener("registration", (({token}:Token) => {
     // do something with token 
@@ -176,7 +176,7 @@ Adds listener to handle when user answers on call.
 
 
 ```typescript
-import {CallKitVoip, Token} from "capacitor-callkit-voip"
+import {CallKitVoip, Token} from "@capgo/capacitor-callkit-voip"
 //...
 CallKitVoip.addListener("callAnswered", (({username, connectionId}:CallData) => {
     // handle call (e.g. redirect it to specific page with call)
@@ -199,7 +199,7 @@ CallKitVoip.addListener("callAnswered", (({username, connectionId}:CallData) => 
 Adds listener to handle call starting. I am not sure if it's usable, because you can handle it directly in your app
 
 ```typescript
-import {CallKitVoip, Token} from "capacitor-callkit-voip"
+import {CallKitVoip, Token} from "@capgo/capacitor-callkit-voip"
 //...
 CallKitVoip.addListener("callStarted", (({username, connectionId}:CallData) => {
     // handle call (e.g. redirect it to specific page with call)
