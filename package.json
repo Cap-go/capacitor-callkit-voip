@@ -1,6 +1,6 @@
 {
   "name": "@capgo/capacitor-callkit-voip",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Provide PushKit functionality to ionic capacitor",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",

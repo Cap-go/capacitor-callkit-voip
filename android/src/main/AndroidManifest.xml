@@ -47,7 +47,8 @@
 
         </service>
         <service
-            android:name="com.bfine.capactior.callkitvoip.MyFirebaseMessagingService">
+            android:name="com.bfine.capactior.callkitvoip.MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
