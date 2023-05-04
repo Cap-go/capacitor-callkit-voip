@@ -56,5 +56,5 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation 'com.twilio:video-android:5.8.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.5.0-alpha02'
+    implementation 'com.google.android.material:material:1.9.0'
 }
